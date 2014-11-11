@@ -307,17 +307,37 @@ public class DefaultProcessDiagramCanvas {
   public void drawNoneStartEvent(GraphicInfo graphicInfo) {
     drawStartEvent(graphicInfo, null, 1.0);
   }
+  
+  public void drawNoneStartEvent(String name, GraphicInfo graphicInfo) {
+      drawNoneStartEvent(graphicInfo);
+      drawLabel(name, graphicInfo);
+  }
 
   public void drawTimerStartEvent(GraphicInfo graphicInfo, double scaleFactor) {
-    drawStartEvent(graphicInfo, TIMER_IMAGE, scaleFactor);
+      drawStartEvent(graphicInfo, TIMER_IMAGE, scaleFactor);
+  }
+  
+  public void drawTimerStartEvent(String name, GraphicInfo graphicInfo, double scaleFactor) {
+      drawTimerStartEvent(graphicInfo, scaleFactor);
+      drawLabel(name, graphicInfo);
   }
   
   public void drawSignalStartEvent(GraphicInfo graphicInfo, double scaleFactor) {
-    drawStartEvent(graphicInfo, SIGNAL_CATCH_IMAGE, scaleFactor);
+      drawStartEvent(graphicInfo, SIGNAL_CATCH_IMAGE, scaleFactor);
+  }
+  
+  public void drawSignalStartEvent(String name, GraphicInfo graphicInfo, double scaleFactor) {
+      drawSignalStartEvent(graphicInfo, scaleFactor);
+      drawLabel(name, graphicInfo);
   }
   
   public void drawMessageStartEvent(GraphicInfo graphicInfo, double scaleFactor) {
     drawStartEvent(graphicInfo, MESSAGE_CATCH_IMAGE, scaleFactor);
+  }
+  
+  public void drawMessageStartEvent(String name, GraphicInfo graphicInfo, double scaleFactor) {
+      drawMessageStartEvent(graphicInfo, scaleFactor);
+      drawLabel(name, graphicInfo);
   }
 
   public void drawStartEvent(GraphicInfo graphicInfo, BufferedImage image, double scaleFactor) {
@@ -356,6 +376,11 @@ public class DefaultProcessDiagramCanvas {
     g.setStroke(originalStroke);
     g.setPaint(originalPaint);
   }
+  
+  public void drawNoneEndEvent(String name, GraphicInfo graphicInfo, double scaleFactor) {
+      drawNoneEndEvent(graphicInfo, scaleFactor);
+      drawLabel(name, graphicInfo);
+  }
 
   public void drawErrorEndEvent(String name, GraphicInfo graphicInfo, double scaleFactor) {
     drawErrorEndEvent(graphicInfo, scaleFactor);
@@ -378,6 +403,11 @@ public class DefaultProcessDiagramCanvas {
         (int) (graphicInfo.getY() + (graphicInfo.getHeight() / 4)), 
         (int) (ERROR_CATCH_IMAGE.getWidth() / scaleFactor), 
         (int) (ERROR_CATCH_IMAGE.getHeight() / scaleFactor), null);
+  }
+  
+  public void drawErrorStartEvent(String name, GraphicInfo graphicInfo, double scaleFactor) {
+      drawErrorStartEvent(graphicInfo, scaleFactor);
+      drawLabel(name, graphicInfo);
   }
 
   public void drawCatchingEvent(GraphicInfo graphicInfo, boolean isInterrupting, 
@@ -949,6 +979,11 @@ public class DefaultProcessDiagramCanvas {
       g.setStroke(orginalStroke);
     }
   }
+  
+  public void drawParallelGateway(String name, GraphicInfo graphicInfo, double scaleFactor) {
+      drawParallelGateway(graphicInfo, scaleFactor);
+      drawLabel(name, graphicInfo);
+  }
 
   public void drawExclusiveGateway(GraphicInfo graphicInfo, double scaleFactor) {
     // rhombus
@@ -972,6 +1007,11 @@ public class DefaultProcessDiagramCanvas {
       g.setStroke(orginalStroke);
     }
   }
+  
+  public void drawExclusiveGateway(String name, GraphicInfo graphicInfo, double scaleFactor) {
+      drawExclusiveGateway(graphicInfo, scaleFactor);
+      drawLabel(name, graphicInfo);
+  }
 
   public void drawInclusiveGateway(GraphicInfo graphicInfo, double scaleFactor) {
     // rhombus
@@ -991,6 +1031,11 @@ public class DefaultProcessDiagramCanvas {
       g.draw(circle);
       g.setStroke(orginalStroke);
     }
+  }
+  
+  public void drawInclusiveGateway(String name, GraphicInfo graphicInfo, double scaleFactor) {
+      drawInclusiveGateway(graphicInfo, scaleFactor);
+      drawLabel(name, graphicInfo);
   }
   
   public void drawEventBasedGateway(GraphicInfo graphicInfo, double scaleFactor) {
@@ -1028,6 +1073,11 @@ public class DefaultProcessDiagramCanvas {
       // draw
       g.drawPolygon(pentagon);
     }
+  }
+  
+  public void drawEventBasedGateway(String name, GraphicInfo graphicInfo, double scaleFactor) {
+      drawEventBasedGateway(graphicInfo, scaleFactor);
+      drawLabel(name, graphicInfo);
   }
 
   public void drawMultiInstanceMarker(boolean sequential, int x, int y, int width, int height) {
