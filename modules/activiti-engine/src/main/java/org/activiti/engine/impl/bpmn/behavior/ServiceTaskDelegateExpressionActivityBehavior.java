@@ -12,6 +12,8 @@
  */
 package org.activiti.engine.impl.bpmn.behavior;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.List;
 
 import org.activiti.engine.ActivitiIllegalArgumentException;
@@ -28,6 +30,7 @@ import org.activiti.engine.impl.delegate.JavaDelegateInvocation;
 import org.activiti.engine.impl.pvm.delegate.ActivityBehavior;
 import org.activiti.engine.impl.pvm.delegate.ActivityExecution;
 import org.activiti.engine.impl.pvm.delegate.SignallableActivityBehavior;
+import org.activiti.engine.impl.util.ReflectUtil;
 
 
 /**
@@ -71,6 +74,18 @@ public class ServiceTaskDelegateExpressionActivityBehavior extends TaskActivityB
         // execution can change: eg.
         // delegateExpression='${mySpringBeanFactory.randomSpringBean()}'
         Object delegate = expression.getValue(execution);
+
+        for (Field field : delegate.getClass().getDeclaredFields()) {
+          if(Expression.class.isAssignableFrom(field.getType())){
+            Method setter = ReflectUtil.getSetter(field.getName(), delegate.getClass(), field.getType());
+            if(setter != null) {
+              setter.invoke(delegate, (Object) null);
+            }else{
+              ReflectUtil.setField(field, delegate, null);
+            }
+          }
+        }
+
         ClassDelegate.applyFieldDeclaration(fieldDeclarations, delegate);
 
         if (delegate instanceof ActivityBehavior) {
